@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using WorkoutTracker.Data.Contexts;
 
 namespace WorkoutTracker.Api
 {
@@ -25,8 +27,15 @@ namespace WorkoutTracker.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            var connectionString = Configuration.GetConnectionString("workout-tracker");
             services.AddControllers();
+            services.AddDbContext<WorkoutTrackerContext>(options =>
+            {
+                options.UseNpgsql(connectionString, postgresOptions =>
+                {
+                    postgresOptions.MigrationsAssembly("WorkoutTracker.Api");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
