@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WorkoutTracker.Dto.Interfaces;
@@ -22,5 +23,10 @@ namespace WorkoutTracker.Data.Entities
         public string Password { get; set; }
         [Column("target_weight", TypeName = "decimal(4,1)"), ]
         public decimal TargetWeight { get; set; }
+        [Column("account_deactivated")]
+        public bool AccountDeactivated { get; set; }
+        [Column("user_name"), StringLength(256)]
+        public string Username { get; set; }
+        public List<LoginAttempt> LoginAttempts { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace WorkoutTracker.Dto.Dtos
         public DateTime BirthDate { get; set; }
         public string Password { get; set; }
         public decimal TargetWeight { get; set; }
+        public string Username { get; set; }
     }
 }

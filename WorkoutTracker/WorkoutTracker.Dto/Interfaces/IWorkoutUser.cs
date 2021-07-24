@@ -11,5 +11,6 @@ namespace WorkoutTracker.Dto.Interfaces
         DateTime BirthDate { get; set; } 
         string Password { get; set; }
         decimal TargetWeight { get; set; }
+        string Username { get; set; }
     }
 }

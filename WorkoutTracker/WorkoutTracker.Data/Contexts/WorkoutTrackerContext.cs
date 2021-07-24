@@ -28,5 +28,6 @@ namespace WorkoutTracker.Data.Contexts
         }
 
         public DbSet<WorkoutUser> WorkoutUsers { get; set; }
+        public DbSet<LoginAttempt> LoginAttempts { get; set; }
     }
 }

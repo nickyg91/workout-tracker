@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net50</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WorkoutTracker.Data\WorkoutTracker.Data.csproj" />
+    <ProjectReference Include="..\WorkoutTracker.Dto\WorkoutTracker.Dto.csproj" />
+  </ItemGroup>
+
+</Project>

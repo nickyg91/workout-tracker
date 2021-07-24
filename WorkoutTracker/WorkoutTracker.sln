@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutTracker.Api", "WorkoutTracker.Api\WorkoutTracker.Api.csproj", "{DCA9B634-61F6-4B4C-9D01-8721F6266954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutTracker.Api", "WorkoutTracker.Api\WorkoutTracker.Api.csproj", "{DCA9B634-61F6-4B4C-9D01-8721F6266954}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutTracker.Dto", "WorkoutTracker.Dto\WorkoutTracker.Dto.csproj", "{A455D735-E5C7-4CF6-AAF0-36187AA38971}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutTracker.Dto", "WorkoutTracker.Dto\WorkoutTracker.Dto.csproj", "{A455D735-E5C7-4CF6-AAF0-36187AA38971}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutTracker.Data", "WorkoutTracker.Data\WorkoutTracker.Data.csproj", "{F581D2BB-4CB4-43E8-B6DD-5A77EBFBF9EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkoutTracker.Data", "WorkoutTracker.Data\WorkoutTracker.Data.csproj", "{F581D2BB-4CB4-43E8-B6DD-5A77EBFBF9EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutTracker.Domain", "WorkoutTracker.Domain\WorkoutTracker.Domain.csproj", "{691922B7-BB4A-47E4-9996-B235B9CF6253}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F581D2BB-4CB4-43E8-B6DD-5A77EBFBF9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F581D2BB-4CB4-43E8-B6DD-5A77EBFBF9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F581D2BB-4CB4-43E8-B6DD-5A77EBFBF9EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691922B7-BB4A-47E4-9996-B235B9CF6253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691922B7-BB4A-47E4-9996-B235B9CF6253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691922B7-BB4A-47E4-9996-B235B9CF6253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691922B7-BB4A-47E4-9996-B235B9CF6253}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
