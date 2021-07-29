@@ -9,6 +9,7 @@ namespace WorkoutTracker.Data.Repositories.Interfaces
         Task<bool> DisableAccountAsync(int workoutUserId);
         Task<bool> EnableAccountAsync(int workoutUserId);
         Task<WorkoutUser> UpdateWorkoutUserAsync(WorkoutUser user);
-        Task<WorkoutUser> GetUserByUsernameOrEmailAndPasswordAsync(string usernameOrEmail, string password);
+        Task<WorkoutUser> GetUserByEmailAndPasswordAsync(string email, string password);
+        Task<WorkoutUser> GetUserByEmail(string email);
     }
 }

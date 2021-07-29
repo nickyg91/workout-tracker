@@ -27,6 +27,10 @@ namespace WorkoutTracker.Data.Entities
         public bool AccountDeactivated { get; set; }
         [Column("user_name"), StringLength(256)]
         public string Username { get; set; }
+        [Column("is_email_validated")]
+        public bool IsEmailValidated { get; set; }
+        [Column("validation_token")]
+        public Guid ValidationToken { get; set; }
         public List<LoginAttempt> LoginAttempts { get; set; }
     }
 }

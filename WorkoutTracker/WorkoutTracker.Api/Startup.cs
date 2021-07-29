@@ -12,6 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WorkoutTracker.Data.Contexts;
+using WorkoutTracker.Data.Repositories.Interfaces;
+using WorkoutTracker.Domain;
 
 namespace WorkoutTracker.Api
 {
@@ -36,6 +38,9 @@ namespace WorkoutTracker.Api
                     postgresOptions.MigrationsAssembly("WorkoutTracker.Api");
                 });
             });
+            services.AddScoped<IWorkoutUserRepository, WorkoutUserRepository>();
+            services.AddScoped<ILoginAttemptRepository, LoginAttemptRepository>();
+            services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,14 +6,15 @@ using WorkoutTracker.Data.Entities;
 
 namespace WorkoutTracker.Data.Repositories.Interfaces
 {
-    public class WorkoutRepository : IWorkoutUserRepository
+    public class WorkoutUserRepository : IWorkoutUserRepository
     {
         private readonly WorkoutTrackerContext _ctx;
 
-        public WorkoutRepository(WorkoutTrackerContext context)
+        public WorkoutUserRepository(WorkoutTrackerContext context)
         {
             _ctx = context;
         }
+
         public async Task<WorkoutUser> CreateWorkoutUserAsync(WorkoutUser user)
         {
             await _ctx.AddAsync(user);
@@ -43,11 +44,18 @@ namespace WorkoutTracker.Data.Repositories.Interfaces
             return await _ctx.WorkoutUsers.SingleOrDefaultAsync(x => x.Id == user.Id);
         }
 
-        public async Task<WorkoutUser> GetUserByUsernameOrEmailAndPasswordAsync(string userName, string password)
+        public async Task<WorkoutUser> GetUserByEmailAndPasswordAsync(string userName, string password)
         {
             var user = await _ctx.WorkoutUsers.SingleOrDefaultAsync(x =>
-                x.Username.Equals(userName, StringComparison.OrdinalIgnoreCase) &&
+                x.Email.Equals(userName, StringComparison.OrdinalIgnoreCase) &&
                 x.Password == password);
+            return user;
+        }
+
+        public async Task<WorkoutUser> GetUserByEmail(string email)
+        {
+            var user = await _ctx.WorkoutUsers.SingleOrDefaultAsync(x =>
+                x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
             return user;
         }
     }

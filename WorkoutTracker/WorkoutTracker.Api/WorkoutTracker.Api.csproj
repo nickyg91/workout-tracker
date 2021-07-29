@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WorkoutTracker.Data\WorkoutTracker.Data.csproj" />
+    <ProjectReference Include="..\WorkoutTracker.Domain\WorkoutTracker.Domain.csproj" />
     <ProjectReference Include="..\WorkoutTracker.Dto\WorkoutTracker.Dto.csproj" />
   </ItemGroup>
 

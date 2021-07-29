@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using WorkoutTracker.Data.Entities;
 using WorkoutTracker.Data.Repositories.Interfaces;
-using WorkoutTracker.Dto.Dtos;
 using WorkoutTracker.Dto.Interfaces;
+using WorkoutUser = WorkoutTracker.Dto.Dtos.WorkoutUser;
 using WorkoutUserDbEntity = WorkoutTracker.Data.Entities.WorkoutUser;
 
 namespace WorkoutTracker.Domain
@@ -10,21 +11,24 @@ namespace WorkoutTracker.Domain
     public class AuthenticationRepository : IAuthenticationRepository
     {
         private readonly IWorkoutUserRepository _workoutUserRepository;
-        public AuthenticationRepository(IWorkoutUserRepository workoutUserRepository)
+        private readonly ILoginAttemptRepository _loginAttemptRepository;
+        public AuthenticationRepository(IWorkoutUserRepository workoutUserRepository, ILoginAttemptRepository loginAttemptRepository)
         {
             _workoutUserRepository = workoutUserRepository;
+            _loginAttemptRepository = loginAttemptRepository;
         }
         public async Task<WorkoutUser> CreateAccount(WorkoutUser userToCreate)
         {
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(userToCreate.Password);
             var userToInsert = new WorkoutUserDbEntity
             {
                 Email = userToCreate.Email,
-                Password = userToCreate.Password,
+                Password = hashedPassword,
                 BirthDate = userToCreate.BirthDate,
                 FirstName = userToCreate.FirstName,
                 LastName = userToCreate.LastName,
                 TargetWeight = userToCreate.TargetWeight,
-                Username = userToCreate.Username
+                Username = userToCreate.Username,
             };
             var insertedUser = await _workoutUserRepository.CreateWorkoutUserAsync(userToInsert);
             return new WorkoutUser
@@ -40,14 +44,45 @@ namespace WorkoutTracker.Domain
             };
         }
 
-        public async Task<WorkoutUser> Authenticate(string username, string password)
+        public async Task<WorkoutUser> Authenticate(string email, string password)
         {
             var authenticatedUser =
-                await _workoutUserRepository.GetUserByUsernameOrEmailAndPasswordAsync(username, password);
-            if (authenticatedUser == null)
+                await _workoutUserRepository.GetUserByEmailAndPasswordAsync(email, password);
+            var userAttemptingToLogIn = _workoutUserRepository.GetUserByEmail(email);
+            if (userAttemptingToLogIn == null)
             {
                 return null;
             }
+
+            LoginAttempt loginAttempt;
+            if (authenticatedUser == null)
+            {
+                loginAttempt = new LoginAttempt
+                {
+                    IsSuccessful = false,
+                    LastLogonAttemptUtc = DateTime.UtcNow,
+                    UserId = userAttemptingToLogIn.Id
+                };
+                await _loginAttemptRepository.AddLoginAttemptAsync(loginAttempt);
+                return null;
+            }
+            loginAttempt = new LoginAttempt
+            {
+                IsSuccessful = true,
+                LastLogonAttemptUtc = DateTime.UtcNow,
+                UserId = userAttemptingToLogIn.Id
+            };
+            await _loginAttemptRepository.AddLoginAttemptAsync(loginAttempt);
+            return new WorkoutUser
+            {
+                BirthDate = authenticatedUser.BirthDate,
+                Email = authenticatedUser.Email,
+                FirstName = authenticatedUser.FirstName,
+                LastName = authenticatedUser.LastName,
+                Id = authenticatedUser.Id,
+                TargetWeight = authenticatedUser.TargetWeight,
+                Username = authenticatedUser.Username,
+            };
         }
     }
 }
