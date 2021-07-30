@@ -11,5 +11,7 @@ namespace WorkoutTracker.Data.Repositories.Interfaces
         Task<WorkoutUser> UpdateWorkoutUserAsync(WorkoutUser user);
         Task<WorkoutUser> GetUserByEmailAndPasswordAsync(string email, string password);
         Task<WorkoutUser> GetUserByEmail(string email);
+        Task<bool> CheckIfUsernameExists(string username);
+        Task<bool> CheckIfAccountExists(string email);
     }
 }

@@ -7,5 +7,7 @@ namespace WorkoutTracker.Domain
     {
         Task<WorkoutUser> CreateAccount(WorkoutUser userToCreate);
         Task<WorkoutUser> Authenticate(string userName, string password);
+        Task<bool> CheckIfUserAlreadyExistsForEmail(string email);
+        Task<bool> CheckIfUsernameAlreadyTaken(string username);
     }
 }

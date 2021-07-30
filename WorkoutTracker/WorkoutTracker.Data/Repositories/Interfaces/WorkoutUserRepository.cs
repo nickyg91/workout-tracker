@@ -58,5 +58,19 @@ namespace WorkoutTracker.Data.Repositories.Interfaces
                 x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
             return user;
         }
+
+        public async Task<bool> CheckIfUsernameExists(string username)
+        {
+            var user = await _ctx.WorkoutUsers.FirstOrDefaultAsync(x =>
+                x.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+            return user != null;
+        }
+
+        public async Task<bool> CheckIfAccountExists(string email)
+        {
+            var user = await _ctx.WorkoutUsers.FirstOrDefaultAsync(x =>
+                x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            return user != null;
+        }
     }
 }

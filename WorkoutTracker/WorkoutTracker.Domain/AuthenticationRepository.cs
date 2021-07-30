@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using WorkoutTracker.Data.Entities;
 using WorkoutTracker.Data.Repositories.Interfaces;
-using WorkoutTracker.Dto.Interfaces;
 using WorkoutUser = WorkoutTracker.Dto.Dtos.WorkoutUser;
 using WorkoutUserDbEntity = WorkoutTracker.Data.Entities.WorkoutUser;
 
@@ -83,6 +82,16 @@ namespace WorkoutTracker.Domain
                 TargetWeight = authenticatedUser.TargetWeight,
                 Username = authenticatedUser.Username,
             };
+        }
+
+        public async Task<bool> CheckIfUserAlreadyExistsForEmail(string email)
+        {
+            return await _workoutUserRepository.CheckIfAccountExists(email);
+        }
+
+        public async Task<bool> CheckIfUsernameAlreadyTaken(string username)
+        {
+            return await _workoutUserRepository.CheckIfUsernameExists(username);
         }
     }
 }
