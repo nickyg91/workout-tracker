@@ -13,5 +13,6 @@ namespace WorkoutTracker.Data.Repositories.Interfaces
         Task<WorkoutUser> GetUserByEmail(string email);
         Task<bool> CheckIfUsernameExists(string username);
         Task<bool> CheckIfAccountExists(string email);
+        Task<WorkoutUser> GetUserById(int id);
     }
 }

@@ -13,9 +13,7 @@ namespace WorkoutTracker.Api.Models
         public string Email { get; set; }
         [Required]
         public DateTime BirthDate { get; set; }
-        [Required, 
-         RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,64}$", 
-             ErrorMessage = "Invalid Password: It must contain at least 8 characters, one lowercase, one uppercase, one special character.")]
+        [Required]
         public string Password { get; set; }
         [Required, Compare("Password")]
         public string ConfirmPassword { get; set; }

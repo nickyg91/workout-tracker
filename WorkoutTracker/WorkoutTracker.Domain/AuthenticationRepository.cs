@@ -11,8 +11,10 @@ namespace WorkoutTracker.Domain
     {
         private readonly IWorkoutUserRepository _workoutUserRepository;
         private readonly ILoginAttemptRepository _loginAttemptRepository;
-        public AuthenticationRepository(IWorkoutUserRepository workoutUserRepository, ILoginAttemptRepository loginAttemptRepository)
+        private readonly IEmailService _emailService;
+        public AuthenticationRepository(IWorkoutUserRepository workoutUserRepository, ILoginAttemptRepository loginAttemptRepository, IEmailService emailService)
         {
+            _emailService = emailService;
             _workoutUserRepository = workoutUserRepository;
             _loginAttemptRepository = loginAttemptRepository;
         }
@@ -28,8 +30,10 @@ namespace WorkoutTracker.Domain
                 LastName = userToCreate.LastName,
                 TargetWeight = userToCreate.TargetWeight,
                 Username = userToCreate.Username,
+                ValidationToken = Guid.NewGuid(),
             };
             var insertedUser = await _workoutUserRepository.CreateWorkoutUserAsync(userToInsert);
+            _emailService.SendAccountVerificationEmail(insertedUser);
             return new WorkoutUser
             {
                 Email = insertedUser.Email,
@@ -45,16 +49,14 @@ namespace WorkoutTracker.Domain
 
         public async Task<WorkoutUser> Authenticate(string email, string password)
         {
-            var authenticatedUser =
-                await _workoutUserRepository.GetUserByEmailAndPasswordAsync(email, password);
-            var userAttemptingToLogIn = _workoutUserRepository.GetUserByEmail(email);
+            var userAttemptingToLogIn = await _workoutUserRepository.GetUserByEmail(email);
             if (userAttemptingToLogIn == null)
             {
                 return null;
             }
 
             LoginAttempt loginAttempt;
-            if (authenticatedUser == null)
+            if (!BCrypt.Net.BCrypt.Verify(password, userAttemptingToLogIn.Password))
             {
                 loginAttempt = new LoginAttempt
                 {
@@ -65,6 +67,7 @@ namespace WorkoutTracker.Domain
                 await _loginAttemptRepository.AddLoginAttemptAsync(loginAttempt);
                 return null;
             }
+            
             loginAttempt = new LoginAttempt
             {
                 IsSuccessful = true,
@@ -74,13 +77,24 @@ namespace WorkoutTracker.Domain
             await _loginAttemptRepository.AddLoginAttemptAsync(loginAttempt);
             return new WorkoutUser
             {
-                BirthDate = authenticatedUser.BirthDate,
-                Email = authenticatedUser.Email,
-                FirstName = authenticatedUser.FirstName,
-                LastName = authenticatedUser.LastName,
-                Id = authenticatedUser.Id,
-                TargetWeight = authenticatedUser.TargetWeight,
-                Username = authenticatedUser.Username,
+                BirthDate = userAttemptingToLogIn.BirthDate,
+                Email = userAttemptingToLogIn.Email,
+                FirstName = userAttemptingToLogIn.FirstName,
+                LastName = userAttemptingToLogIn.LastName,
+                Id = userAttemptingToLogIn.Id,
+                TargetWeight = userAttemptingToLogIn.TargetWeight,
+                Username = userAttemptingToLogIn.Username,
+            };
+        }
+
+        public async Task<WorkoutUser> GetWorkoutUserById(int id)
+        {
+            var workoutUser = await _workoutUserRepository.GetUserById(id);
+            return new WorkoutUser
+            {
+                Email = workoutUser.Email,
+                Id = workoutUser.Id,
+                Username = workoutUser.Username,
             };
         }
 

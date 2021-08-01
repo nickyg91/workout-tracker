@@ -5,15 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using WorkoutTracker.Api.Middleware;
 using WorkoutTracker.Data.Contexts;
 using WorkoutTracker.Data.Repositories.Interfaces;
 using WorkoutTracker.Domain;
+using WorkoutTracker.Domain.Configuration;
 
 namespace WorkoutTracker.Api
 {
@@ -38,6 +35,9 @@ namespace WorkoutTracker.Api
                     postgresOptions.MigrationsAssembly("WorkoutTracker.Api");
                 });
             });
+
+            services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
+            services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IWorkoutUserRepository, WorkoutUserRepository>();
             services.AddScoped<ILoginAttemptRepository, LoginAttemptRepository>();
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
@@ -57,10 +57,13 @@ namespace WorkoutTracker.Api
 
             app.UseAuthorization();
 
+            app.UseMiddleware<JwtMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

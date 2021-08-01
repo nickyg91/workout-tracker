@@ -6,7 +6,8 @@ namespace WorkoutTracker.Domain
     public interface IAuthenticationRepository
     {
         Task<WorkoutUser> CreateAccount(WorkoutUser userToCreate);
-        Task<WorkoutUser> Authenticate(string userName, string password);
+        Task<WorkoutUser> Authenticate(string email, string password);
+        Task<WorkoutUser> GetWorkoutUserById(int id);
         Task<bool> CheckIfUserAlreadyExistsForEmail(string email);
         Task<bool> CheckIfUsernameAlreadyTaken(string username);
     }

@@ -44,10 +44,10 @@ namespace WorkoutTracker.Data.Repositories.Interfaces
             return await _ctx.WorkoutUsers.SingleOrDefaultAsync(x => x.Id == user.Id);
         }
 
-        public async Task<WorkoutUser> GetUserByEmailAndPasswordAsync(string userName, string password)
+        public async Task<WorkoutUser> GetUserByEmailAndPasswordAsync(string email, string password)
         {
             var user = await _ctx.WorkoutUsers.SingleOrDefaultAsync(x =>
-                x.Email.Equals(userName, StringComparison.OrdinalIgnoreCase) &&
+                x.Email.Equals(email) &&
                 x.Password == password);
             return user;
         }
@@ -55,22 +55,27 @@ namespace WorkoutTracker.Data.Repositories.Interfaces
         public async Task<WorkoutUser> GetUserByEmail(string email)
         {
             var user = await _ctx.WorkoutUsers.SingleOrDefaultAsync(x =>
-                x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+                x.Email.Equals(email));
             return user;
         }
 
         public async Task<bool> CheckIfUsernameExists(string username)
         {
             var user = await _ctx.WorkoutUsers.FirstOrDefaultAsync(x =>
-                x.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+                x.Username.Equals(username));
             return user != null;
         }
 
         public async Task<bool> CheckIfAccountExists(string email)
         {
             var user = await _ctx.WorkoutUsers.FirstOrDefaultAsync(x =>
-                x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+                x.Email.Equals(email));
             return user != null;
+        }
+
+        public async Task<WorkoutUser> GetUserById(int id)
+        {
+            return await _ctx.WorkoutUsers.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }
