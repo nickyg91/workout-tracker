@@ -1,9 +1,9 @@
 ﻿using System;
-using WorkoutTracker.Dto.Interfaces;
+using WorkoutTracker.Domain.Entities.Interfaces;
 
-namespace WorkoutTracker.Dto.Dtos
+namespace WorkoutTracker.Domain.Entities
 {
-    public class WorkoutUser : IWorkoutUser
+    public class User : IWorkoutUser
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

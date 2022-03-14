@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using WorkoutTracker.Api.Models;
 using WorkoutTracker.Domain;
 using WorkoutTracker.Domain.Configuration;
+using WorkoutTracker.Domain.Entities.Interfaces;
 
 namespace WorkoutTracker.Api.Controllers
 {
@@ -52,7 +53,7 @@ namespace WorkoutTracker.Api.Controllers
             return Ok(new AuthenticatedUserModel
             {
                 Token = tokenString,
-                User = authenticatedUser
+                User = authenticatedUser as IWorkoutUser
             });
         }
     }

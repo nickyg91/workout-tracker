@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using WorkoutTracker.Data.Entities;
-using WorkoutTracker.Data.Repositories.Interfaces;
-using WorkoutUser = WorkoutTracker.Dto.Dtos.WorkoutUser;
-using WorkoutUserDbEntity = WorkoutTracker.Data.Entities.WorkoutUser;
+using WorkoutTracker.Domain.Data.Entities;
+using WorkoutTracker.Domain.Data.Repositories.Interfaces;
 
 namespace WorkoutTracker.Domain
 {
@@ -21,7 +19,7 @@ namespace WorkoutTracker.Domain
         public async Task<WorkoutUser> CreateAccount(WorkoutUser userToCreate)
         {
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(userToCreate.Password);
-            var userToInsert = new WorkoutUserDbEntity
+            var userToInsert = new WorkoutUser
             {
                 Email = userToCreate.Email,
                 Password = hashedPassword,

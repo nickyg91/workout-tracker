@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WorkoutTracker.Api.Models;
 using WorkoutTracker.Domain;
-using WorkoutTracker.Dto.Dtos;
+using WorkoutTracker.Domain.Data.Entities;
 
 namespace WorkoutTracker.Api.Controllers
 {

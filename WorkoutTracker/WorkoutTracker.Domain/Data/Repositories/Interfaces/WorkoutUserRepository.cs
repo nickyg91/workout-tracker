@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using WorkoutTracker.Data.Contexts;
-using WorkoutTracker.Data.Entities;
+using WorkoutTracker.Domain.Data.Contexts;
+using WorkoutTracker.Domain.Data.Entities;
 
-namespace WorkoutTracker.Data.Repositories.Interfaces
+namespace WorkoutTracker.Domain.Data.Repositories.Interfaces
 {
     public class WorkoutUserRepository : IWorkoutUserRepository
     {

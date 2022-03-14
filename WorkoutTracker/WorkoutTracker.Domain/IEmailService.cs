@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using WorkoutTracker.Data.Entities;
+﻿
+using WorkoutTracker.Domain.Data.Entities;
 
 namespace WorkoutTracker.Domain
 {

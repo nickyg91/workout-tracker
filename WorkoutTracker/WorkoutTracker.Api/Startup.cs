@@ -7,10 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using WorkoutTracker.Api.Middleware;
-using WorkoutTracker.Data.Contexts;
-using WorkoutTracker.Data.Repositories.Interfaces;
 using WorkoutTracker.Domain;
 using WorkoutTracker.Domain.Configuration;
+using WorkoutTracker.Domain.Data.Contexts;
+using WorkoutTracker.Domain.Data.Repositories.Interfaces;
 
 namespace WorkoutTracker.Api
 {

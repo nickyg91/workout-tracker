@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WorkoutTracker.Data.Entities;
+using WorkoutTracker.Domain.Data.Entities;
 
-namespace WorkoutTracker.Data.Contexts
+namespace WorkoutTracker.Domain.Data.Contexts
 {
     public class WorkoutTrackerContext : DbContext
     {

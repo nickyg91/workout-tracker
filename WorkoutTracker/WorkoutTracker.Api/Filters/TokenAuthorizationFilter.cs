@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using WorkoutTracker.Dto.Dtos;
+using WorkoutTracker.Domain.Entities;
 
 namespace WorkoutTracker.Api.Filters
 {
@@ -11,7 +11,7 @@ namespace WorkoutTracker.Api.Filters
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = (WorkoutUser) context.HttpContext.Items["User"];
+            var user = (User) context.HttpContext.Items["User"];
             if (user == null)
             {
                 context.Result = new JsonResult(new {message = "Unauthorized"})

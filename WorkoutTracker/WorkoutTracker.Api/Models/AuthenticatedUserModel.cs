@@ -1,10 +1,10 @@
-﻿using WorkoutUser =  WorkoutTracker.Dto.Dtos.WorkoutUser;
+﻿using WorkoutTracker.Domain.Entities.Interfaces;
 
 namespace WorkoutTracker.Api.Models
 {
     public class AuthenticatedUserModel
     {
-        public WorkoutUser User { get; set; }
+        public IWorkoutUser User { get; set; }
         public string Token { get; set; }
     }
 }

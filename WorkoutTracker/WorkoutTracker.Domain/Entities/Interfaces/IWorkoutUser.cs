@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WorkoutTracker.Dto.Interfaces
+namespace WorkoutTracker.Domain.Entities.Interfaces
 {
     public interface IWorkoutUser
     {

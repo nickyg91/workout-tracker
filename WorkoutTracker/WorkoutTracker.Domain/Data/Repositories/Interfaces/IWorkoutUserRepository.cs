@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using WorkoutTracker.Data.Entities;
+using WorkoutTracker.Domain.Data.Entities;
 
-namespace WorkoutTracker.Data.Repositories.Interfaces
+namespace WorkoutTracker.Domain.Data.Repositories.Interfaces
 {
     public interface IWorkoutUserRepository
     {

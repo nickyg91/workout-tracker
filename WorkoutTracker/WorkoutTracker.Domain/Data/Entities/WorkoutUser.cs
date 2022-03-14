@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using WorkoutTracker.Dto.Interfaces;
+using WorkoutTracker.Domain.Entities.Interfaces;
 
-namespace WorkoutTracker.Data.Entities
+namespace WorkoutTracker.Domain.Data.Entities
 {
     [Table("workout_user")]
     public class WorkoutUser : IWorkoutUser

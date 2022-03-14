@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WorkoutTracker.Data.Entities
+namespace WorkoutTracker.Domain.Data.Entities
 {
     [Table("login_attempts")]
     public class LoginAttempt
